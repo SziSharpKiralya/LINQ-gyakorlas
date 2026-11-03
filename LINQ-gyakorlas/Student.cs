@@ -9,9 +9,9 @@ namespace LINQ_gyakorlas
         private string name;
         private int age;
         private string classId;
-        private int avg;
+        private double avg;
 
-        public Student(string name, int age, string classId, int avg)
+        public Student(string name, int age, string classId, double avg)
         {
             Name = name;
             Age = age;
@@ -22,6 +22,11 @@ namespace LINQ_gyakorlas
         public string Name { get => name; set => name = value; }
         public int Age { get => age; set => age = value; }
         public string ClassId { get => classId; set => classId = value; }
-        public int Avg { get => avg; set => avg = value; }
+        public double Avg { get => avg; set => avg = value; }
+
+        public override string ToString()
+        {
+            return $"{Name} - {Age} | Class:{ClassId} Avg:{Avg}";
+        }
     }
 }

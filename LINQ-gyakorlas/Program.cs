@@ -75,6 +75,77 @@ namespace LINQ_gyakorlas
             //LINQ_MethodSyntax(); // Lambda-kifejezések
             //LINQ_OtherSyntax(); // Ritkán használt kifejezés
 
+            List<Student> students = File.ReadAllLines("students.csv")
+                .Skip(1)
+                .Select(line => line.Split(';'))
+                .Select(parts => new Student(parts[0], int.Parse(parts[1]), parts[2], double.Parse(parts[3])))
+                .ToList();
+
+            foreach (var item in students)
+            {
+                Console.WriteLine(item);
+            }
+
+            List<Student> results_1 = students
+                .Where(item => item.Age >= 18 && item.Avg >= 4.0f)
+                .ToList();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("They are 18+ & have an avg. above 4.0: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            foreach (var item in results_1)
+            {
+                Console.WriteLine(item);
+            }
+
+            List<Student> results_2 = students
+                .Where(item => item.ClassId == "11A" || item.ClassId == "13A")
+                .ToList();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("They are in 11A or 13A: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            foreach (var item in results_2)
+            {
+                Console.WriteLine(item);
+            }
+
+            List<Student> results_3 = students
+                .Where(item => item.ClassId != "12B")
+                .ToList();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("They are NOT in 12B: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            foreach (var item in results_3)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Get names of the students: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<string> results_4 = students
+                .Select(item => item.Name)
+                .ToList();
+
+            foreach (var item in results_4)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Get the ages of the students, but doubled: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<int> results_5 = students
+                .Select(item => item.Age * 2)
+                .ToList();
+
+            foreach (var item in results_5)
+            {
+                Console.WriteLine(item);
+            }
+
         }
     }
 }
