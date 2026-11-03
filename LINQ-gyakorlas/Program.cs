@@ -146,6 +146,156 @@ namespace LINQ_gyakorlas
                 Console.WriteLine(item);
             }
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Get a new List of names and classIds (class list method): ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            var results_6 = students
+                .Select(item => new { item.Name, item.ClassId })
+                .ToList();
+
+            foreach (var item in results_6)
+            {
+                Console.WriteLine($"{item.Name} | {item.ClassId}");
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Get a new List of names and classIds (string list method): ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<string> results_7 = students
+                .Select(item => $"{item.Name} | {item.ClassId}")
+                .ToList();
+
+            foreach (var item in results_7)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Get the names of students with an avg. above 4.0: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<string> results_8 = students
+                .Where(item => item.Avg >= 4.0)
+                .Select(item => item.Name)
+                .ToList();
+
+            foreach (var item in results_8)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Students ordered by age: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<Student> results_9 = students
+                .OrderBy(item => item.Age)
+                .ToList();
+
+            foreach (var item in results_9)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Students ordered by reverse avg.: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<Student> results_10 = students
+                .OrderByDescending(item => item.Avg)
+                .ToList();
+
+            foreach (var item in results_10)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Students ordered by classIds, then reverse ordered by avg.: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<Student> results_11 = students
+                .OrderBy(item => item.ClassId)
+                .ThenByDescending(item => item.Avg)
+                // Az első OrderBy után Then-t használunk
+                .ToList();
+
+            foreach (var item in results_11)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Top 3 students ordered by avg.: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<Student> results_13 = students
+                .OrderByDescending(item => item.Avg)
+                .Take(3)
+                .ToList();
+
+            foreach (var item in results_13)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Exclude top 3 students ordered by avg.: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            List<Student> results_14 = students
+                .OrderByDescending(item => item.Avg)
+                .Skip(3)
+                .ToList();
+
+            foreach (var item in results_14)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("First student: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Student results_15 = students
+                .First();
+                // Inkább használjuk a FirstOrDefault-ot
+
+            Console.WriteLine(results_15);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Find student named 'Ferenc': ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Student? results_16 = students
+                .FirstOrDefault(item => item.Name == "Ferenc");
+
+            Console.WriteLine(results_16);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("First student with an avg. above 4.5: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Student? results_17 = students
+                .Where(item => item.Avg >= 4.5f)
+                .FirstOrDefault();
+
+            Console.WriteLine(results_17);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Last student: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Student? results_18 = students
+                .LastOrDefault();
+
+            Console.WriteLine(results_18);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Is there a student with an avg. above 4.5: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            bool results_19 = students
+                .Any(item => item.Avg >= 4.5f);
+
+            Console.WriteLine(results_19 ? "Yes, there is :)" : "No, there is not :(");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Are all the students 18+: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            bool results_20 = students
+                .All(item => item.Avg >= 4.5f);
+
+            Console.WriteLine(results_20 ? "Yes, they are :)" : "No, they are not :(");
         }
     }
 }
