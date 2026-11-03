@@ -296,6 +296,106 @@ namespace LINQ_gyakorlas
                 .All(item => item.Avg >= 4.5f);
 
             Console.WriteLine(results_20 ? "Yes, they are :)" : "No, they are not :(");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Average age of all students: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            double results_21 = students
+                .Average(item => item.Age);
+
+            Console.WriteLine(results_21);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("The worst avg.: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            double results_22 = students
+                .Min(item => item.Avg);
+
+            Console.WriteLine(results_22);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("The oldest student's age: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            double results_23 = students
+                .Max(item => item.Age);
+
+            Console.WriteLine(results_23);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("List of classIds: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            var results_24 = students
+                .Select(item => item.ClassId)
+                .Distinct();
+
+            foreach (var item in results_24)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("ClassIds and students: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            var results_25 = students
+                .GroupBy(item => item.ClassId);
+
+            foreach (var item in results_25)
+            {
+                Console.WriteLine($"{item.Key}:");
+                foreach (var subItem in item)
+                {
+                    Console.WriteLine($" {subItem}");
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("ClassIds and student counts: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            var results_26 = students
+                .GroupBy(item => item.ClassId)
+                .Select(item => new
+                {
+                    ClassId = item.Key,
+                    People = item.Count()
+                });
+
+            foreach (var item in results_26)
+            {
+                Console.WriteLine($"{item.ClassId}: {item.People}");
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Added 'Zoltán' later to the list: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            var results_27 = students
+                .Where(item => item.Avg >= 4.0);
+
+            students.Add(new Student("Zoltán", 18, "13A", 4.5f));
+
+            foreach (var item in results_27)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("-----------------------------------");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Mennyi az osztályátlag az egyes osztályokban? ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            var task_1 = students
+                .GroupBy(item => item.ClassId)
+                .Select(item => new
+                {
+                    ClassId = item.Key,
+                    Average = item.Average(subItem => subItem.Avg)
+                });
+
+            foreach (var item in task_1)
+            {
+                Console.WriteLine($"{item.ClassId}: {Math.Round(item.Average, 1)}");
+            }
         }
     }
 }
